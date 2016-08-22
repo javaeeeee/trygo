@@ -5,6 +5,8 @@ package KernighanAndRitchie
 
 import (
 	"errors"
+	"io/ioutil"
+	"os"
 )
 
 // ErrorStepZero is the error message when step is 0
@@ -42,4 +44,40 @@ func ConvertFahrenheitToCelcius(low, high, step int) ([]float64, error) {
 	}
 
 	return result, nil
+}
+
+/*
+Power computes m-th power of number n
+*/
+func Power(n float64, m int) float64 {
+	if m == 0 {
+		return 1.
+	}
+	result := float64(n)
+	for i := 1; i < m; i++ {
+		result *= float64(n)
+	}
+	if m < 0 {
+		result = 1. / result
+	}
+	return result
+}
+
+/*
+CopyTextFile copies text file specified by file name src to a new file with name provided in dest parameter
+*/
+func CopyTextFile(src, dest string) error {
+	if src == dest {
+		return nil
+	}
+	data, err := ioutil.ReadFile(src)
+	if err == nil {
+		err = ioutil.WriteFile(dest, data, os.ModePerm)
+	}
+
+	// If error in either case is not nil, return the error
+	if err != nil {
+		return err
+	}
+	return nil
 }

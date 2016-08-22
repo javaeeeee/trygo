@@ -1,1 +1,1 @@
-A simple project with excercises in GO language (golang).
+A simple project with exercises in GO language (golang).

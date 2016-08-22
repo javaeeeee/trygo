@@ -2,6 +2,7 @@ package KernighanAndRitchie
 
 import (
 	"errors"
+	"math"
 	"reflect"
 	"testing"
 )
@@ -26,4 +27,27 @@ func TestConvertFahrenheitToCelcius(t *testing.T) {
 				c.low, c.high, c.step, got, c.want)
 		}
 	}
+}
+
+func TestPower(t *testing.T) {
+	cases := []struct {
+		n    float64
+		m    int
+		want float64
+	}{
+		{1., 0, 1.},
+		{1., 1, 1},
+		{2., 2, 4.},
+		{2., -1, .5},
+		{0., -1, math.Inf(1)},
+	}
+	for _, c := range cases {
+		got := Power(c.n, c.m)
+		if got != c.want {
+			t.Errorf("Power(%g,%d)==%g, want %g", c.n, c.m, got, c.want)
+		}
+	}
+}
+
+func TestCopyTextFile(t *testing.T) {
 }
