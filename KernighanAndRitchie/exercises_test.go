@@ -40,9 +40,32 @@ func TestPower(t *testing.T) {
 		{2., 2, 4.},
 		{2., -1, .5},
 		{0., -1, math.Inf(1)},
+        {2., -2, .25},
 	}
 	for _, c := range cases {
 		got := Power(c.n, c.m)
+		if got != c.want {
+			t.Errorf("Power(%g,%d)==%g, want %g", c.n, c.m, got, c.want)
+		}
+	}
+}
+
+func TestPowerRecursive(t *testing.T) {
+	cases := []struct {
+		n    float64
+		m    int
+		want float64
+	}{
+		{1., 0, 1.},
+		{1., 1, 1},
+		{2., 2, 4.},
+		{2., -1, .5},
+		{0., -1, math.Inf(1)},
+        {2., -2, .25},
+        {2., -4, .0625},
+	}
+	for _, c := range cases {
+		got := PowerRecursive(c.n, c.m)
 		if got != c.want {
 			t.Errorf("Power(%g,%d)==%g, want %g", c.n, c.m, got, c.want)
 		}

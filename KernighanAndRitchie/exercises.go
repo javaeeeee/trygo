@@ -6,6 +6,7 @@ package KernighanAndRitchie
 import (
 	"errors"
 	"io/ioutil"
+	"math"
 	"os"
 )
 
@@ -54,13 +55,33 @@ func Power(n float64, m int) float64 {
 		return 1.
 	}
 	result := float64(n)
-	for i := 1; i < m; i++ {
+	numIterations := int(math.Abs(float64(m)))
+	for i := 1; i < numIterations; i++ {
 		result *= float64(n)
 	}
 	if m < 0 {
 		result = 1. / result
 	}
 	return result
+}
+
+/*
+Power computes m-th power of number n using recursion
+*/
+func PowerRecursive(n float64, m int) float64 {
+	if m == 0 {
+		return 1
+	}
+	if m == 1 {
+		return n
+	}
+	if m == -1 {
+		return 1. / n
+	}
+	if m > 0 {
+		return n * PowerRecursive(n, m-1)
+	}
+	return PowerRecursive(n, m+1) / n
 }
 
 /*
